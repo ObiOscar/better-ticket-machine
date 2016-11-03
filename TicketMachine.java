@@ -105,8 +105,19 @@ public class TicketMachine
     {
         int dineroGuardadoMaquina;
         
+        if(balance>0){          // Si un usuario ha metido dinero no se vacia la máquina sino si.
+            
+            return -1;  
+        }
+        else{
+            
         dineroGuardadoMaquina = total;
         total = 0;
         return dineroGuardadoMaquina;
+            
+        }
+       
+        
+
     }
 }
