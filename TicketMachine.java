@@ -17,16 +17,20 @@ public class TicketMachine
     private int balance;
     // The total amount of money collected by this machine.
     private int total;
+    // ATRIBUTO PARA CREAR MAQUINA REGALO
+    private int premio;
 
     /**
-     * Create a machine that issues tickets of the given price.
+     * Máquina normal un 0, maquina con premio un 1.
      */
-    public TicketMachine(int cost)
+    public TicketMachine(int cost, int tombola)
     {
+        premio = tombola;
         price = cost;
         balance = 0;
         total = 0;
     }
+   
 
     /**
      * @Return The price of a ticket.
@@ -67,7 +71,9 @@ public class TicketMachine
      */
     public void printTicket()
     {
-        if(balance >= price) {
+
+        
+        if(premio<=0 && balance >= price) {
             // Simulate the printing of a ticket.
             System.out.println("##################");
             System.out.println("# The BlueJ Line");
@@ -87,6 +93,35 @@ public class TicketMachine
                                (amointLeftToPay) + " more cents.");
                     
         }
+        
+        if (premio>=1 && balance >= price){
+             // Simulate the printing of a ticket.
+            System.out.println();
+            System.out.println("##################");
+            System.out.println("# The BlueJ Line");
+            System.out.println("# Ticket");
+            System.out.println("# " + price + " cents.");
+            System.out.println("##################");
+            System.out.println();
+
+            // Update the total collected with the price.
+            total = total + price;
+            // Reduce the balance by the prince.
+            balance = balance - price;
+            
+            System.out.println();
+            System.out.println("##################");
+            System.out.println();
+            System.out.println("# Ticket de REGALO");
+            System.out.println("# " + 0 + " cents.");
+        
+        }
+         else {
+            int amointLeftToPay = price -balance;
+            System.out.println("You must insert at least: " +
+                               (amointLeftToPay) + " more cents.");
+                    
+        }
     }
 
     /**
@@ -101,23 +136,18 @@ public class TicketMachine
         return amountToRefund;
     }
     
-        public int vaciarMaquina ()
+    public int vaciarMaquina ()
     {
         int dineroGuardadoMaquina;
         
         if(balance>0){          // Si un usuario ha metido dinero no se vacia la máquina sino si.
-            
             return -1;  
         }
-        else{
-            
-        dineroGuardadoMaquina = total;
-        total = 0;
-        return dineroGuardadoMaquina;
+        else{  
+            dineroGuardadoMaquina = total;
+            total = 0;
+            return dineroGuardadoMaquina;
             
         }
-       
-        
-
     }
 }
