@@ -82,8 +82,9 @@ public class TicketMachine
             balance = balance - price;
         }
         else {
+            int amointLeftToPay = price -balance;
             System.out.println("You must insert at least: " +
-                               (price - balance) + " more cents.");
+                               (amointLeftToPay) + " more cents.");
                     
         }
     }
@@ -98,5 +99,14 @@ public class TicketMachine
         amountToRefund = balance;
         balance = 0;
         return amountToRefund;
+    }
+    
+        public int vaciarMaquina ()
+    {
+        int dineroGuardadoMaquina;
+        
+        dineroGuardadoMaquina = total;
+        total = 0;
+        return dineroGuardadoMaquina;
     }
 }
