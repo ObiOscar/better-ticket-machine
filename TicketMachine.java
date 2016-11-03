@@ -19,16 +19,23 @@ public class TicketMachine
     private int total;
     // ATRIBUTO PARA CREAR MAQUINA REGALO
     private int premio;
+    //CREO UN PARAMETRO DE LOS ASIENTOS DISPONIBLES
+    private int asientos;
+    //Creo una varaiable global que me guarda los billetes vendidos  
+    private int numeroBilletesVendidos;
+
 
     /**
      * Máquina normal un 0, maquina con premio un 1.
      */
-    public TicketMachine(int cost, int tombola)
+    public TicketMachine(int cost,int numeroBilletes, int tombola)
     {
-        premio = tombola;
         price = cost;
+        asientos = numeroBilletes;
+        premio = tombola;
         balance = 0;
         total = 0;
+        numeroBilletesVendidos = 0;
     }
    
 
@@ -55,13 +62,19 @@ public class TicketMachine
      */
     public void insertMoney(int amount)
     {
+    if( numeroBilletesVendidos<asientos ){
+        
         if(amount > 0) {
             balance = balance + amount;
         }
         else {
-            System.out.println("Use a positive amount rather than: " +
-                               amount);
+            System.out.println("Use a positive amount rather than: " +amount);
+    
         }
+    }
+     else{
+     System.out.println("ERROR NO HAY ASIENTOS DISPONIBLES." );  
+    }
     }
 
     /**
@@ -71,57 +84,73 @@ public class TicketMachine
      */
     public void printTicket()
     {
-
+  
+      if( numeroBilletesVendidos<asientos ){
         
-        if(premio<=0 && balance >= price) {
-            // Simulate the printing of a ticket.
-            System.out.println("##################");
-            System.out.println("# The BlueJ Line");
-            System.out.println("# Ticket");
-            System.out.println("# " + price + " cents.");
-            System.out.println("##################");
-            System.out.println();
-
-            // Update the total collected with the price.
-            total = total + price;
-            // Reduce the balance by the prince.
-            balance = balance - price;
-        }
-        else {
-            int amointLeftToPay = price -balance;
-            System.out.println("You must insert at least: " +
-                               (amointLeftToPay) + " more cents.");
-                    
-        }
+            if(premio<=0 && balance >= price ) {
+                // Simulate the printing of a ticket.
+                System.out.println("##################");
+                System.out.println("# The BlueJ Line");
+                System.out.println("# Ticket");
+                System.out.println("# " + price + " cents.");
+                System.out.println("##################");
+                System.out.println();
+    
+                // Update the total collected with the price.
+                total = total + price;
+                // Reduce the balance by the prince.
+                balance = balance - price;
+                
+              
+                numeroBilletesVendidos = numeroBilletesVendidos + 1;
+                
+                System.out.println("Numero de billetes Vendidos" +numeroBilletesVendidos );
+            }
+            else {
+                int amointLeftToPay = price -balance;
+                System.out.println("You must insert at least: " +
+                                   (amointLeftToPay) + " more cents.");
+                        
+            }
         
-        if (premio>=1 && balance >= price){
-             // Simulate the printing of a ticket.
-            System.out.println();
-            System.out.println("##################");
-            System.out.println("# The BlueJ Line");
-            System.out.println("# Ticket");
-            System.out.println("# " + price + " cents.");
-            System.out.println("##################");
-            System.out.println();
-
-            // Update the total collected with the price.
-            total = total + price;
-            // Reduce the balance by the prince.
-            balance = balance - price;
+            if (premio>=1 && balance >= price){
+                 // Simulate the printing of a ticket.
+                System.out.println();
+                System.out.println("##################");
+                System.out.println("# The BlueJ Line");
+                System.out.println("# Ticket");
+                System.out.println("# " + price + " cents.");
+                System.out.println("##################");
+                System.out.println();
+    
+                // Update the total collected with the price.
+                total = total + price;
+                // Reduce the balance by the prince.
+                balance = balance - price;
+                
+                System.out.println();
+                System.out.println("##################");
+                System.out.println();
+                System.out.println("# Ticket de REGALO");
+                System.out.println("# " + 0 + " cents.");
+                
+                
             
-            System.out.println();
-            System.out.println("##################");
-            System.out.println();
-            System.out.println("# Ticket de REGALO");
-            System.out.println("# " + 0 + " cents.");
+                numeroBilletesVendidos = numeroBilletesVendidos + 1; //Aunque sea una máquina que regala un asiento nos indican QUE NO LO CONTEMOS
+                
+                System.out.println("Numero de billetes Vendidos" +numeroBilletesVendidos );
+            }
+             else {
+                int amointLeftToPay = price -balance;
+                System.out.println("You must insert at least: " +
+                                   (amointLeftToPay) + " more cents.");
+                        
+            }
         
-        }
-         else {
-            int amointLeftToPay = price -balance;
-            System.out.println("You must insert at least: " +
-                               (amointLeftToPay) + " more cents.");
-                    
-        }
+    }
+    else{
+     System.out.println("Se han impreso todos los billetes posibles "+ asientos+ " ALSA siente las molestias" );  
+    }
     }
 
     /**
